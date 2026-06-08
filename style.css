@@ -348,7 +348,20 @@ section {
     font-size: 3.5rem;
   }
 
+  /* Mobile Navbar Layout */
+  .nav-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+
   .nav-links {
-    display: none; /* In a full build, you'd add a hamburger menu here */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .nav-links a {
+    font-size: 0.9rem;
   }
 }
