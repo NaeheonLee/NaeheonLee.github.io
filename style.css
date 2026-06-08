@@ -12,6 +12,11 @@
   box-sizing: border-box;
 }
 
+/* --- Global Smooth Scrolling --- */
+html {
+  scroll-behavior: smooth;
+}
+
 /* --- Typography --- */
 body {
   background-color: var(--bg-color);
