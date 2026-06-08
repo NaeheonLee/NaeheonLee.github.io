@@ -1,0 +1,354 @@
+/* --- Color Variables & Reset --- */
+:root {
+  --bg-color: #f9f9f4; /* Cream background */
+  --text-color: #30103a; /* Dark Purple for high contrast text */
+  --accent-blue: #6ec6d3; /* Light Blue */
+  --accent-red: #d94b4b; /* Coral/Red */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* --- Typography --- */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  /* Clean, Apple-like sans-serif for high readability in body text */
+  font-family:
+    "Thonburi",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+/* Elegant, heavy serif italics for headings */
+h1,
+h2,
+h3,
+.logo {
+  font-family: "Charter", "Bitstream Charter", Georgia, serif;
+  font-style: italic;
+  font-weight: 900;
+}
+
+h1 {
+  font-size: 4.5rem;
+  margin-bottom: 10px;
+  letter-spacing: -1px; /* Tightens the header slightly */
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 40px;
+  border-bottom: 2px solid var(--accent-blue);
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.logo {
+  font-size: 1.8rem;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+/* --- Layout --- */
+section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  /* Adds a little padding at the top so your fixed navbar doesn't cover your titles */
+  padding-top: 70px;
+}
+
+.section-container {
+  max-width: 1000px;
+  width: 100%; /* Important: Keeps the container responsive inside the flex section */
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.bg-alt {
+  background-color: rgba(
+    110,
+    198,
+    211,
+    0.1
+  ); /* Super faint blue background for contrast */
+}
+
+/* --- Navbar --- */
+#navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(249, 249, 244, 0.85); /* Slightly transparent Cream */
+  backdrop-filter: blur(12px); /* Apple-like frosted glass effect */
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1000;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(48, 16, 58, 0.1);
+}
+
+.nav-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--accent-red);
+}
+
+/* --- Hero Section --- */
+#hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-content p {
+  font-size: 1.25rem;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+/* --- About Grid --- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.about-text p {
+  margin-bottom: 20px;
+}
+
+.image-box {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background-color: var(--accent-blue); /* Placeholder for your photo */
+  border-radius: 16px; /* Soft Apple-style rounded corners */
+}
+
+/* --- Card Grid (Previous Work & Projects) --- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.card p {
+  margin-bottom: 20px;
+  color: #555; /* Slightly softer text for descriptions */
+}
+
+/* --- Buttons --- */
+.contact-links {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+}
+
+.btn-primary {
+  background-color: var(--accent-red);
+  color: white;
+  padding: 12px 24px;
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #bf3f3f; /* Slightly darker coral on hover */
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-color);
+  padding: 12px 24px;
+  text-decoration: none;
+  border: 2px solid var(--text-color);
+  border-radius: 8px;
+  display: inline-block;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}
+
+.btn-text {
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.btn-text:hover {
+  text-decoration: underline;
+}
+
+/* --- Form --- */
+.form-container {
+  max-width: 600px; /* Keeps the form from getting too wide */
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 1rem;
+  font-family: inherit; /* Ensures it uses Thonburi */
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+}
+
+.hidden-status {
+  display: none;
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+/* --- ANIMATIONS (The "Step Further") --- */
+/* 1. Title Reveal */
+.reveal-title {
+  opacity: 0;
+  transform: translateY(30px); /* Starts slightly lower */
+  transition:
+    opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-title.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 2. Staggered Cards */
+.reveal-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for up to 4 cards */
+.reveal-card:nth-child(1) {
+  transition-delay: 0.1s;
+}
+.reveal-card:nth-child(2) {
+  transition-delay: 0.25s;
+}
+.reveal-card:nth-child(3) {
+  transition-delay: 0.4s;
+}
+.reveal-card:nth-child(4) {
+  transition-delay: 0.55s;
+}
+
+/* 3. Image Scale Reveal */
+.reveal-image {
+  opacity: 0;
+  transform: scale(0.9); /* Starts slightly smaller */
+  transition:
+    opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-image.visible {
+  opacity: 1;
+  transform: scale(1); /* Grows to normal size */
+}
+
+/* --- Responsiveness --- */
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+  }
+
+  .nav-links {
+    display: none; /* In a full build, you'd add a hamburger menu here */
+  }
+}
