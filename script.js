@@ -235,62 +235,89 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 100);
   }
 
-  // --- INTERACTION 4: 3D Card Tilt & Gentle Magnetic Buttons ---
+  // --- INTERACTION 4: Professional Zero-Jitter Lerp (3D Tilt & Magnetic Button) ---
   const projectCards = document.querySelectorAll("#projects .card");
 
   projectCards.forEach((card) => {
     const button = card.querySelector(".btn-github-full");
 
-    // When mouse enters, set up the smooth tracking speeds
-    card.addEventListener("mouseenter", () => {
-      // Fast transition for the card tilt so it feels responsive
-      card.style.transition =
-        "transform 0.1s ease-out, box-shadow 0.1s ease-out";
+    // Target values (where your mouse actually is)
+    let targetX = 0,
+      targetY = 0;
 
-      if (button) {
-        // Slower transition (0.25s) for the button gives it that gentle, floaty lag
-        button.style.transition = "transform 0.25s ease-out";
-      }
+    // Current values (where the card and button currently are during the animation)
+    let cardRotX = 0,
+      cardRotY = 0;
+    let btnX = 0,
+      btnY = 0;
+    let isHovering = false;
+
+    card.addEventListener("mouseenter", () => {
+      isHovering = true;
+      card.style.transition = "none";
+      if (button) button.style.transition = "none";
+
+      // Kick off the buttery smooth animation loop
+      animate();
     });
 
     card.addEventListener("mousemove", (e) => {
       const rect = card.getBoundingClientRect();
-
-      // Calculate cursor position relative to the exact center of the card
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-
-      // --- 1. 3D Card Tilt Math ---
-      // Divides by 15 to keep the tilt subtle (max ~5 degrees). Lower number = crazier tilt
-      const rotateX = -(y / 15);
-      const rotateY = x / 15;
-
-      // Applies the 3D tilt and gives it a nice shadow boost so it pops off the screen
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
-      card.style.boxShadow = "0 20px 40px rgba(0, 0, 0, 0.12)";
-
-      // --- 2. Gentle Magnetic Button Math ---
-      if (button) {
-        // 0.15 multiplier makes the pull very soft and polite
-        button.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px) scale(1.02)`;
-      }
+      // Calculate mouse position relative to the center of the card
+      targetX = e.clientX - rect.left - rect.width / 2;
+      targetY = e.clientY - rect.top - rect.height / 2;
     });
 
     card.addEventListener("mouseleave", () => {
-      // --- Reset Card ---
-      // Restores your original CSS transitions when the mouse leaves
+      isHovering = false;
+
+      // Restore the CSS transitions for a graceful snap-back to the center
       card.style.transition =
-        "transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)";
-      // Clearing the styles lets the CSS file take control again
+        "transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)";
       card.style.transform = "";
       card.style.boxShadow = "";
 
-      // --- Reset Button ---
       if (button) {
         button.style.transition =
-          "transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)";
+          "transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)";
         button.style.transform = "";
       }
+
+      // Reset targets for the next hover
+      targetX = 0;
+      targetY = 0;
     });
+
+    function animate() {
+      if (!isHovering) return;
+
+      // --- 1. The 3D Card Tilt ---
+      // Divide by 30 for a subtle maximum tilt
+      let targetCardRotX = -(targetY / 30);
+      let targetCardRotY = targetX / 30;
+
+      // Lerp formula: smoothly glide the current rotation 10% closer to the target rotation per frame
+      cardRotX += (targetCardRotX - cardRotX) * 0.1;
+      cardRotY += (targetCardRotY - cardRotY) * 0.1;
+
+      card.style.transform = `perspective(1000px) rotateX(${cardRotX}deg) rotateY(${cardRotY}deg) translateY(-2px)`;
+      card.style.boxShadow = "0 15px 30px rgba(0, 0, 0, 0.08)";
+
+      // --- 2. The Lazy Magnetic Button ---
+      if (button) {
+        // Multiply by 0.08 to severely limit how far the button is allowed to travel
+        let targetBtnX = targetX * 0.08;
+        let targetBtnY = targetY * 0.08;
+
+        // Glide the button 5% closer to the target per frame
+        btnX += (targetBtnX - btnX) * 0.05;
+        btnY += (targetBtnY - btnY) * 0.05;
+
+        button.style.transform = `translate(${btnX}px, ${btnY}px) scale(1.02)`;
+      }
+
+      // Loop the animation perfectly in sync with the user's screen refresh rate
+      requestAnimationFrame(animate);
+    }
   });
 });
