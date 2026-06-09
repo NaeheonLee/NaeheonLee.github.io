@@ -372,6 +372,28 @@ section {
   font-weight: 600;
 }
 
+/* --- SVG Logo in Navbar --- */
+.nav-svg {
+  height: 180px;
+  width: auto;
+  display: block;
+}
+
+/* --- SVG Name in Hero Section --- */
+.hero-svg {
+  height: 500px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* --- Mobile Responsiveness for the Hero SVG --- */
+@media (max-width: 768px) {
+  .hero-svg {
+    height: 90px;
+  }
+}
+
 /* --- ANIMATIONS (Scroll Observer Interactions) --- */
 .reveal-title {
   opacity: 0;
