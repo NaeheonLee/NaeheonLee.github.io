@@ -2,7 +2,7 @@
 :root {
   --bg-color: #f9f9f4; /* Cream background */
   --text-color: #30103a; /* Dark Purple for high contrast text */
-  --accent-blue: #6ec6d3; /* Light Blue */
+  --accent-blue: #2a818f; /* Light Blue */
   --accent-red: #d94b4b; /* Coral/Red */
 }
 
@@ -375,7 +375,7 @@ section {
 
 /* --- SVG Logo in Navbar --- */
 .nav-svg {
-  height: 50px;
+  height: 70px;
   width: auto;
   display: block;
   transform: scale(4);
@@ -384,7 +384,7 @@ section {
 
 /* --- SVG Name in Hero Section --- */
 .hero-svg {
-  height: 150px;
+  height: 180px;
   width: auto;
   display: block;
   margin: 0 auto;
