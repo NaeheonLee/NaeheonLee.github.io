@@ -196,6 +196,14 @@ section {
   font-size: 1.1rem;
 }
 
+/* --- Project Specific Grid (Vertical Stack) --- */
+#projects .card-grid {
+  grid-template-columns: 1fr;
+  max-width: 800px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
 /* --- Expanded Project Card (Bento Style) --- */
 .expanded-card {
   display: flex;
@@ -204,9 +212,9 @@ section {
 }
 
 .card-inner-layout {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .tech-stack {
