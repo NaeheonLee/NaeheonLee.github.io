@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     // Flocking simulation variables
-    const numBoids = 60; // Adjust for more or fewer circles
+    const numBoids = 100; // Adjust for more or fewer circles
     const visualRange = 75;
     const boids = [];
 
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Limit the speed of the boids so they move smoothly
     function limitSpeed(boid) {
-      // Increase max speed slightly to allow them to "run away" from the cursor effectively
+      // Increase max speed slightly to allow them to run away from the cursor effectively
       const speedLimit = 2.5;
       const speed = Math.hypot(boid.dx, boid.dy);
       if (speed > speedLimit) {
@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
         separation(boid);
         alignment(boid);
         cohesion(boid);
-        mouseInteraction(boid); // Add the mouse interaction here!
+        mouseInteraction(boid);
         limitSpeed(boid);
         keepWithinBounds(boid);
 
