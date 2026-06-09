@@ -10,20 +10,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const scrollObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        // Add the 'visible' class to trigger the CSS animation
         entry.target.classList.add("visible");
-        // Stop observing once it has animated in
         observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
 
-  // Grab all elements we want to animate (Titles, Cards, and Images)
   const animatedElements = document.querySelectorAll(
     ".reveal-title, .reveal-card, .reveal-image",
   );
 
-  // Attach the observer to each element
   animatedElements.forEach((el) => {
     scrollObserver.observe(el);
   });
@@ -34,14 +30,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (contactForm) {
     contactForm.addEventListener("submit", (event) => {
-      event.preventDefault(); // Prevent page reload on submit
+      event.preventDefault();
 
-      // Gather values using ES6 const
       const name = document.getElementById("name").value.trim();
       const email = document.getElementById("email").value.trim();
       const message = document.getElementById("message").value.trim();
 
-      // Basic validation logic
       if (name === "" || email === "" || message === "") {
         formStatus.textContent = "Please fill out all fields.";
         formStatus.style.color = "var(--accent-red)";
@@ -49,22 +43,18 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Simulate a successful submission
       formStatus.textContent = `Thank you, ${name}! Your message has been sent.`;
       formStatus.style.color = "green";
       formStatus.style.display = "block";
-
-      // Clear the form fields
       contactForm.reset();
 
-      // Hide the success message after 4 seconds
       setTimeout(() => {
         formStatus.style.display = "none";
       }, 4000);
     });
   }
 
-  // --- INTERACTION 3: Hero Flocking Simulation (Interactive) ---
+  // --- INTERACTION 3: Hero Flocking Simulation ---
   const canvas = document.getElementById("flockCanvas");
   const heroSection = document.getElementById("hero");
 
@@ -72,60 +62,63 @@ document.addEventListener("DOMContentLoaded", () => {
     const ctx = canvas.getContext("2d");
     let width, height;
 
-    // Resize canvas to fit the hero section perfectly
     function resize() {
-      width = canvas.width = canvas.offsetWidth;
-      height = canvas.height = canvas.offsetHeight;
+      width = canvas.width = canvas.offsetWidth || window.innerWidth;
+      height = canvas.height = canvas.offsetHeight || window.innerHeight;
     }
     window.addEventListener("resize", resize);
     resize();
 
-    // Grab the root colors directly from your CSS variables
     const rootStyles = getComputedStyle(document.documentElement);
     const colors = [
-      rootStyles.getPropertyValue("--accent-blue").trim(),
-      rootStyles.getPropertyValue("--accent-red").trim(),
-      rootStyles.getPropertyValue("--text-color").trim(),
+      rootStyles.getPropertyValue("--accent-blue").trim() || "#6ec6d3",
+      rootStyles.getPropertyValue("--accent-red").trim() || "#d94b4b",
+      rootStyles.getPropertyValue("--text-color").trim() || "#30103a",
     ];
 
-    // Flocking simulation variables
-    const numBoids = 100; // Adjust for more or fewer circles
+    const numBoids = 60;
     const visualRange = 75;
     const boids = [];
 
-    // --- NEW: Mouse Interaction Variables ---
     const mouse = {
       x: -1000,
       y: -1000,
-      radius: 120, // How far away the circles will start scattering
+      radius: 120,
     };
 
-    // Track mouse movement over the hero section
-    heroSection.addEventListener("mousemove", (e) => {
+    function updateInteractionPosition(e) {
       const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    });
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-    // Move the simulated mouse off-screen when the cursor leaves the hero area
-    heroSection.addEventListener("mouseleave", () => {
+      mouse.x = clientX - rect.left;
+      mouse.y = clientY - rect.top;
+    }
+
+    function resetInteractionPosition() {
       mouse.x = -1000;
       mouse.y = -1000;
-    });
+    }
 
-    // Initialize the circles (boids)
+    heroSection.addEventListener("mousemove", updateInteractionPosition);
+    heroSection.addEventListener("mouseleave", resetInteractionPosition);
+    heroSection.addEventListener("touchmove", updateInteractionPosition, {
+      passive: true,
+    });
+    heroSection.addEventListener("touchend", resetInteractionPosition);
+    heroSection.addEventListener("touchcancel", resetInteractionPosition);
+
     for (let i = 0; i < numBoids; i++) {
       boids.push({
         x: Math.random() * width,
         y: Math.random() * height,
         dx: Math.random() * 2 - 1,
         dy: Math.random() * 2 - 1,
-        radius: Math.random() * 3 + 2, // Sizes between 2px and 5px
+        radius: Math.random() * 3 + 2,
         color: colors[Math.floor(Math.random() * colors.length)],
       });
     }
 
-    // Rule 1: Keep distance from other boids (Separation)
     function separation(boid) {
       let moveX = 0;
       let moveY = 0;
@@ -143,7 +136,6 @@ document.addEventListener("DOMContentLoaded", () => {
       boid.dy += moveY * 0.05;
     }
 
-    // Rule 2: Match velocity with near boids (Alignment)
     function alignment(boid) {
       let avgDX = 0;
       let avgDY = 0;
@@ -166,7 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // Rule 3: Move toward the center of near boids (Cohesion)
     function cohesion(boid) {
       let centerX = 0;
       let centerY = 0;
@@ -189,21 +180,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // --- NEW: Rule 4: Mouse Repulsion ---
     function mouseInteraction(boid) {
       const dx = boid.x - mouse.x;
       const dy = boid.y - mouse.y;
       const dist = Math.hypot(dx, dy);
 
       if (dist < mouse.radius) {
-        // Calculate the force so it pushes harder the closer the boid is to the center of the mouse
         const force = (mouse.radius - dist) / mouse.radius;
         boid.dx += (dx / dist) * force * 2;
         boid.dy += (dy / dist) * force * 2;
       }
     }
 
-    // Keep boids inside the screen by wrapping them around the edges
+    // Edge wrapping logic to let boids reappear on the opposite side
     function keepWithinBounds(boid) {
       if (boid.x < -10) boid.x = width + 10;
       if (boid.x > width + 10) boid.x = -10;
@@ -211,9 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (boid.y > height + 10) boid.y = -10;
     }
 
-    // Limit the speed of the boids so they move smoothly
     function limitSpeed(boid) {
-      // Increase max speed slightly to allow them to run away from the cursor effectively
       const speedLimit = 2.5;
       const speed = Math.hypot(boid.dx, boid.dy);
       if (speed > speedLimit) {
@@ -222,31 +209,88 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // Main Animation Loop
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
+    setTimeout(() => {
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
 
-      for (let boid of boids) {
-        separation(boid);
-        alignment(boid);
-        cohesion(boid);
-        mouseInteraction(boid);
-        limitSpeed(boid);
-        keepWithinBounds(boid);
+        for (let boid of boids) {
+          separation(boid);
+          alignment(boid);
+          cohesion(boid);
+          mouseInteraction(boid);
+          limitSpeed(boid);
+          keepWithinBounds(boid);
 
-        boid.x += boid.dx;
-        boid.y += boid.dy;
+          boid.x += boid.dx;
+          boid.y += boid.dy;
 
-        // Draw the circle
-        ctx.beginPath();
-        ctx.arc(boid.x, boid.y, boid.radius, 0, Math.PI * 2);
-        ctx.fillStyle = boid.color;
-        ctx.fill();
+          ctx.beginPath();
+          ctx.arc(boid.x, boid.y, boid.radius, 0, Math.PI * 2);
+          ctx.fillStyle = boid.color;
+          ctx.fill();
+        }
+        requestAnimationFrame(animate);
       }
-
-      requestAnimationFrame(animate);
-    }
-
-    animate();
+      animate();
+    }, 100);
   }
+
+  // --- INTERACTION 4: 3D Card Tilt & Gentle Magnetic Buttons ---
+  const projectCards = document.querySelectorAll("#projects .card");
+
+  projectCards.forEach((card) => {
+    const button = card.querySelector(".btn-github-full");
+
+    // When mouse enters, set up the smooth tracking speeds
+    card.addEventListener("mouseenter", () => {
+      // Fast transition for the card tilt so it feels responsive
+      card.style.transition =
+        "transform 0.1s ease-out, box-shadow 0.1s ease-out";
+
+      if (button) {
+        // Slower transition (0.25s) for the button gives it that gentle, floaty lag
+        button.style.transition = "transform 0.25s ease-out";
+      }
+    });
+
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+
+      // Calculate cursor position relative to the exact center of the card
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      // --- 1. 3D Card Tilt Math ---
+      // Divides by 15 to keep the tilt subtle (max ~5 degrees). Lower number = crazier tilt
+      const rotateX = -(y / 15);
+      const rotateY = x / 15;
+
+      // Applies the 3D tilt and gives it a nice shadow boost so it pops off the screen
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+      card.style.boxShadow = "0 20px 40px rgba(0, 0, 0, 0.12)";
+
+      // --- 2. Gentle Magnetic Button Math ---
+      if (button) {
+        // 0.15 multiplier makes the pull very soft and polite
+        button.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px) scale(1.02)`;
+      }
+    });
+
+    card.addEventListener("mouseleave", () => {
+      // --- Reset Card ---
+      // Restores your original CSS transitions when the mouse leaves
+      card.style.transition =
+        "transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)";
+      // Clearing the styles lets the CSS file take control again
+      card.style.transform = "";
+      card.style.boxShadow = "";
+
+      // --- Reset Button ---
+      if (button) {
+        button.style.transition =
+          "transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)";
+        button.style.transform = "";
+      }
+    });
+  });
 });

@@ -274,7 +274,6 @@ section {
   font-size: 1.05rem;
   font-weight: 600;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   margin-top: auto;
 }
 
