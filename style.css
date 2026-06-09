@@ -31,7 +31,7 @@ body {
     Helvetica,
     Arial,
     sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
 }
 
 /* Elegant, heavy serif italics for headings */
@@ -45,13 +45,13 @@ h3,
 }
 
 h1 {
-  font-size: 5.5rem;
+  font-size: 5.5rem; /* Upgraded to Apple-large statement text */
   margin-bottom: 10px;
   letter-spacing: -1.5px;
 }
 
 h2 {
-  font-size: 3.2rem; /* Increased from 2.5rem */
+  font-size: 3.2rem;
   font-weight: 900;
   margin-bottom: 40px;
   border-bottom: 3px solid var(--accent-blue);
@@ -60,7 +60,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   margin-bottom: 15px;
 }
 
@@ -95,8 +95,8 @@ section {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: rgba(249, 249, 244, 0.85); /* Slightly transparent Cream */
-  backdrop-filter: blur(12px); /* Apple-like frosted glass effect */
+  background-color: rgba(249, 249, 244, 0.85);
+  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   z-index: 1000;
   padding: 15px 0;
@@ -139,7 +139,7 @@ section {
 }
 
 .hero-content p {
-  font-size: 1.25rem;
+  font-size: 1.75rem;
   color: var(--text-color);
   opacity: 0.8;
 }
@@ -159,8 +159,8 @@ section {
 .image-box {
   width: 100%;
   aspect-ratio: 1/1;
-  background-color: var(--accent-blue); /* Placeholder for your photo */
-  border-radius: 16px; /* Soft Apple-style rounded corners */
+  background-color: var(--accent-blue);
+  border-radius: 16px;
 }
 
 /* --- Card Grid (Previous Work & Projects) --- */
@@ -168,26 +168,78 @@ section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
+  align-items: stretch;
 }
 
 .card {
   background: #fff;
-  padding: 30px;
-  border-radius: 16px;
+  padding: 35px;
+  border-radius: 18px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
 }
 
 .card p {
   margin-bottom: 20px;
-  color: #555; /* Slightly softer text for descriptions */
+  color: #555;
+  font-size: 1.1rem;
+}
+
+/* --- Project Card Actions Layout --- */
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 15px;
+}
+
+/* Apple-Style Pill Button for 'Explore Details' */
+.open-modal-btn {
+  background-color: #1d1d1f;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-block;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.open-modal-btn:hover {
+  background-color: #000000;
+  transform: scale(1.04);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Clean, Minimalist Text Link Style for GitHub */
+.github-link {
+  font-size: 0.95rem;
+  color: var(--accent-blue);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  padding-left: 2px;
+  transition: opacity 0.2s ease;
+}
+
+.github-link:hover {
+  text-decoration: underline;
+  opacity: 0.8;
 }
 
 /* --- Buttons --- */
@@ -211,7 +263,7 @@ section {
 }
 
 .btn-primary:hover {
-  background-color: #bf3f3f; /* Slightly darker coral on hover */
+  background-color: #bf3f3f;
 }
 
 .btn-secondary {
@@ -243,7 +295,7 @@ section {
 
 /* --- Form --- */
 .form-container {
-  max-width: 600px; /* Keeps the form from getting too wide */
+  max-width: 600px;
 }
 
 .form-group {
@@ -264,7 +316,7 @@ section {
   border-radius: 8px;
   background: #fff;
   font-size: 1rem;
-  font-family: inherit; /* Ensures it uses Thonburi */
+  font-family: inherit;
   transition: border-color 0.3s ease;
 }
 
@@ -326,7 +378,7 @@ section {
   transform: scale(1) translateY(0);
 }
 
-/* Typography inside the light modal (Bigger fonts) */
+/* Typography inside the light modal */
 .light-modal .modal-category {
   font-size: 1rem;
   font-weight: 600;
@@ -345,7 +397,7 @@ section {
 
 .light-modal p {
   color: #1d1d1f;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   line-height: 1.7;
   margin-bottom: 30px;
 }
@@ -379,11 +431,10 @@ section {
   background: rgba(0, 0, 0, 0.1);
 }
 
-/* --- ANIMATIONS (The "Step Further") --- */
-/* 1. Title Reveal */
+/* --- ANIMATIONS (Scroll Observer Interactions) --- */
 .reveal-title {
   opacity: 0;
-  transform: translateY(30px); /* Starts slightly lower */
+  transform: translateY(30px);
   transition:
     opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1),
     transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -394,7 +445,6 @@ section {
   transform: translateY(0);
 }
 
-/* 2. Staggered Cards */
 .reveal-card {
   opacity: 0;
   transform: translateY(40px);
@@ -408,7 +458,7 @@ section {
   transform: translateY(0);
 }
 
-/* Stagger delays for up to 4 cards */
+/* Stagger delays for layout cards */
 .reveal-card:nth-child(1) {
   transition-delay: 0.1s;
 }
@@ -422,10 +472,9 @@ section {
   transition-delay: 0.55s;
 }
 
-/* 3. Image Scale Reveal */
 .reveal-image {
   opacity: 0;
-  transform: scale(0.9); /* Starts slightly smaller */
+  transform: scale(0.9);
   transition:
     opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1),
     transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -433,7 +482,7 @@ section {
 
 .reveal-image.visible {
   opacity: 1;
-  transform: scale(1); /* Grows to normal size */
+  transform: scale(1);
 }
 
 /* --- Responsiveness --- */
@@ -443,7 +492,7 @@ section {
   }
 
   h1 {
-    font-size: 3.5rem;
+    font-size: 4rem;
   }
 
   /* Mobile Navbar Layout */
