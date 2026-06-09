@@ -374,23 +374,28 @@ section {
 
 /* --- SVG Logo in Navbar --- */
 .nav-svg {
-  height: 180px;
+  height: 50px;
   width: auto;
   display: block;
+  transform: scale(4);
+  transform-origin: left center;
 }
 
 /* --- SVG Name in Hero Section --- */
 .hero-svg {
-  height: 500px;
+  height: 150px;
   width: auto;
   display: block;
   margin: 0 auto;
+  transform: scale(3.5);
+  transform-origin: center center;
 }
 
 /* --- Mobile Responsiveness for the Hero SVG --- */
 @media (max-width: 768px) {
   .hero-svg {
-    height: 90px;
+    height: 60px;
+    transform: scale(2.2);
   }
 }
 
