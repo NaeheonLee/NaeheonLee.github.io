@@ -47,7 +47,7 @@ h3,
 
 h1 {
   font-size: 4.5rem;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   letter-spacing: -1.5px;
 }
 
@@ -205,7 +205,7 @@ section {
 }
 
 #projects .card h3 {
-  margin-bottom: 5px; /* Tighter spacing below Project Title */
+  margin-bottom: 0px; /* Tighter spacing below Project Title */
 }
 
 /* Targets the brief description paragraph directly below the title */
@@ -225,7 +225,7 @@ section {
 .card-inner-layout {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 .details-title {
@@ -234,7 +234,7 @@ section {
   font-weight: 900;
   font-size: 1.4rem;
   color: var(--text-color);
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   letter-spacing: normal;
 }
 
@@ -243,8 +243,8 @@ section {
   display: block;
   width: 100%;
   text-align: center;
-  background-color: #3a3a3c;
-  color: #ffffff;
+  background-color: #e4e4e7;
+  color: #1d1d1f;
   padding: 16px;
   border-radius: 12px;
   font-size: 1.05rem;
@@ -255,9 +255,9 @@ section {
 }
 
 .btn-github-full:hover {
-  background-color: #2c2c2e;
+  background-color: #d4d4d8;
   transform: scale(1.02);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 /* --- Buttons --- */
