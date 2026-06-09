@@ -1,4 +1,8 @@
-/* --- Color Variables & Reset --- */
+/* ==========================================================================
+   NAEHEON LEE PORTFOLIO - STYLESHEET
+   ========================================================================== */
+
+/* --- 1. COLOR VARIABLES & RESET --- */
 :root {
   --bg-color: #f9f9f4; /* Cream background */
   --text-color: #30103a; /* Dark Purple for high contrast text */
@@ -12,13 +16,11 @@
   box-sizing: border-box;
 }
 
-/* --- Global Smooth Scrolling --- */
 html {
   scroll-behavior: smooth;
   font-size: 16px;
 }
 
-/* --- Typography --- */
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -35,11 +37,12 @@ body {
   font-size: 1rem;
 }
 
-/* Elegant, heavy serif italics for headings */
+/* --- 2. TYPOGRAPHY --- */
 h1,
 h2,
 h3,
-.logo {
+.logo,
+.details-title {
   font-family: "Charter", "Bitstream Charter", Georgia, serif;
   font-style: italic;
   font-weight: 900;
@@ -54,9 +57,8 @@ h1 {
 
 h2 {
   font-size: 2.5rem;
-  font-weight: 900;
   margin-bottom: 40px;
-  border-bottom: 3px solid var(--accent-red); /* Your red underline */
+  border-bottom: 3px solid var(--accent-red);
   display: inline-block;
   padding-bottom: 5px;
   color: var(--accent-blue);
@@ -68,13 +70,14 @@ h3 {
   color: var(--accent-blue);
 }
 
-.logo {
-  font-size: 2.2rem;
-  text-decoration: none;
-  color: var(--text-color);
+.details-title {
+  font-size: 1.4rem;
+  color: var(--accent-blue);
+  margin-bottom: 0px;
+  letter-spacing: normal;
 }
 
-/* --- Layout --- */
+/* --- 3. LAYOUT & GLOBALS --- */
 section {
   min-height: 100vh;
   display: flex;
@@ -94,7 +97,7 @@ section {
   background-color: rgba(110, 198, 211, 0.1);
 }
 
-/* --- Navbar --- */
+/* Navbar Layout */
 #navbar {
   position: fixed;
   top: 0;
@@ -105,6 +108,11 @@ section {
   z-index: 1000;
   padding: 15px 0;
   border-bottom: 1px solid rgba(48, 16, 58, 0.1);
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.nav-hidden {
+  transform: translateY(-100%);
 }
 
 .nav-content {
@@ -120,6 +128,8 @@ section {
   list-style: none;
   display: flex;
   gap: 25px;
+  position: relative;
+  z-index: 10;
 }
 
 .nav-links a {
@@ -133,7 +143,15 @@ section {
   color: var(--accent-red);
 }
 
-/* --- Hero Section --- */
+.logo {
+  font-size: 2.2rem;
+  text-decoration: none;
+  color: var(--text-color);
+  position: relative;
+  z-index: 10;
+}
+
+/* Hero Section Layout */
 #hero {
   height: 100vh;
   display: flex;
@@ -144,7 +162,6 @@ section {
   overflow: hidden;
 }
 
-/* Forces your text to sit on top of the background canvas */
 .hero-content {
   position: relative;
   z-index: 1;
@@ -157,7 +174,6 @@ section {
   margin-top: -5px;
 }
 
-/* The canvas that holds the flocking simulation */
 #flockCanvas {
   position: absolute;
   top: 0;
@@ -169,7 +185,7 @@ section {
   pointer-events: none;
 }
 
-/* --- About Grid --- */
+/* About Grid Layout */
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -188,7 +204,7 @@ section {
   border-radius: 16px;
 }
 
-/* --- Card Grid (Previous Work & Projects) --- */
+/* Card Grids */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -196,6 +212,14 @@ section {
   align-items: stretch;
 }
 
+#projects .card-grid {
+  grid-template-columns: 1fr;
+  max-width: 800px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+/* --- 4. COMPONENTS (Cards, Buttons, Forms) --- */
 .card {
   background: #fff;
   padding: 35px;
@@ -220,26 +244,16 @@ section {
   font-size: 1.1rem;
 }
 
-/* --- Project Specific Grid (Vertical Stack) --- */
-#projects .card-grid {
-  grid-template-columns: 1fr;
-  max-width: 800px;
-  margin: 0 auto;
-  gap: 40px;
-}
-
 #projects .card h3 {
   margin-bottom: 0px;
 }
 
-/* Targets the brief description paragraph directly below the title */
 #projects .card h3 + p {
   font-size: 1.15rem;
   font-weight: 600;
   color: #1d1d1f;
 }
 
-/* --- Expanded Project Card (Bento Style) --- */
 .expanded-card {
   display: flex;
   flex-direction: column;
@@ -252,38 +266,7 @@ section {
   gap: 10px;
 }
 
-.details-title {
-  font-family: "Charter", "Bitstream Charter", Georgia, serif;
-  font-style: italic;
-  font-weight: 900;
-  font-size: 1.4rem;
-  color: var(--accent-blue);
-  margin-bottom: 0px;
-  letter-spacing: normal;
-}
-
-/* Full-Width GitHub Button */
-.btn-github-full {
-  display: block;
-  width: 100%;
-  text-align: center;
-  background-color: #e4e4e7;
-  color: #1d1d1f;
-  padding: 16px;
-  border-radius: 12px;
-  font-size: 1.05rem;
-  font-weight: 600;
-  text-decoration: none;
-  margin-top: auto;
-}
-
-.btn-github-full:hover {
-  background-color: #d4d4d8;
-  transform: scale(1.02);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-/* --- Buttons --- */
+/* Buttons */
 .contact-links {
   margin-top: 30px;
   display: flex;
@@ -324,17 +307,28 @@ section {
   color: var(--bg-color);
 }
 
-.btn-text {
-  color: var(--accent-blue);
-  text-decoration: none;
+.btn-github-full {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-color: #e4e4e7;
+  color: #1d1d1f;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 1.05rem;
   font-weight: 600;
+  text-decoration: none;
+  margin-top: auto;
+  transition: all 0.3s ease;
 }
 
-.btn-text:hover {
-  text-decoration: underline;
+.btn-github-full:hover {
+  background-color: #d4d4d8;
+  transform: scale(1.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
-/* --- Form --- */
+/* Forms */
 .form-container {
   max-width: 600px;
 }
@@ -373,16 +367,15 @@ section {
   font-weight: 600;
 }
 
-/* --- SVG Logo in Navbar --- */
+/* --- 5. SVGs --- */
 .nav-svg {
-  height: 70px;
+  height: 45px;
   width: auto;
   display: block;
-  transform: scale(4);
+  transform: scale(4.5);
   transform-origin: left center;
 }
 
-/* --- SVG Name in Hero Section --- */
 .hero-svg {
   height: 180px;
   width: auto;
@@ -392,15 +385,7 @@ section {
   transform-origin: center center;
 }
 
-/* --- Mobile Responsiveness for the Hero SVG --- */
-@media (max-width: 768px) {
-  .hero-svg {
-    height: 60px;
-    transform: scale(2.2);
-  }
-}
-
-/* --- ANIMATIONS (Scroll Observer Interactions) --- */
+/* --- 6. SCROLL ANIMATIONS --- */
 .reveal-title {
   opacity: 0;
   transform: translateY(30px);
@@ -427,7 +412,7 @@ section {
   transform: translateY(0);
 }
 
-/* Stagger delays for layout cards */
+/* Stagger card loads */
 .reveal-card:nth-child(1) {
   transition-delay: 0.1s;
 }
@@ -454,34 +439,57 @@ section {
   transform: scale(1);
 }
 
-/* --- Responsiveness --- */
+/* --- 7. MOBILE RESPONSIVENESS --- */
 @media (max-width: 768px) {
-  .about-grid {
-    grid-template-columns: 1fr;
-  }
-
   h1 {
     font-size: 3rem;
   }
-
   h2 {
     font-size: 2rem;
   }
 
-  /* Mobile Navbar Layout */
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .logo {
+    display: flex;
+    justify-content: flex-start;
+    width: auto;
+    padding-left: 3px;
+  }
+
   .nav-content {
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
   }
 
   .nav-links {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
+    justify-content: flex-end;
+    gap: 8px;
+    position: relative;
+    z-index: 10;
   }
 
   .nav-links a {
     font-size: 0.9rem;
+  }
+
+  .nav-svg {
+    height: 35px;
+    transform: scale(4);
+    transform-origin: left center;
+    margin-bottom: 5px;
+  }
+
+  .hero-svg {
+    height: 60px;
+    transform: scale(7);
+    margin-bottom: 30px;
+    margin-top: 20px;
   }
 }

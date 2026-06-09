@@ -1,6 +1,29 @@
-// Ensure the DOM is fully loaded before running scripts
+// ==========================================================================
+// NAEHEON LEE PORTFOLIO - MAIN SCRIPT
+// ==========================================================================
+
 document.addEventListener("DOMContentLoaded", () => {
-  // --- INTERACTION 1: Scroll Animations ---
+  // === 1. SMART SCROLLING NAVBAR ===
+  const navbar = document.getElementById("navbar");
+  let lastScrollTop = 0;
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      // Hide if scrolling DOWN and past the header, show if scrolling UP
+      if (scrollTop > lastScrollTop && scrollTop > 80) {
+        navbar.classList.add("nav-hidden");
+      } else {
+        navbar.classList.remove("nav-hidden");
+      }
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    },
+    { passive: true },
+  );
+
+  // === 2. SCROLL REVEAL ANIMATIONS ===
   const observerOptions = {
     root: null,
     rootMargin: "0px",
@@ -16,15 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }, observerOptions);
 
-  const animatedElements = document.querySelectorAll(
-    ".reveal-title, .reveal-card, .reveal-image",
-  );
+  document
+    .querySelectorAll(".reveal-title, .reveal-card, .reveal-image")
+    .forEach((el) => {
+      scrollObserver.observe(el);
+    });
 
-  animatedElements.forEach((el) => {
-    scrollObserver.observe(el);
-  });
-
-  // --- INTERACTION 2: Form Validation & Handling ---
+  // === 3. CONTACT FORM HANDLING ===
   const contactForm = document.getElementById("contactForm");
   const formStatus = document.getElementById("form-status");
 
@@ -54,7 +75,55 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- INTERACTION 3: Hero Flocking Simulation ---
+  // === 4. ZERO-JITTER LERP (3D TILT) ===
+  const projectCards = document.querySelectorAll("#projects .card");
+
+  projectCards.forEach((card) => {
+    let targetX = 0,
+      targetY = 0;
+    let cardRotX = 0,
+      cardRotY = 0;
+    let isHovering = false;
+
+    card.addEventListener("mouseenter", () => {
+      isHovering = true;
+      card.style.transition = "none";
+      animateCard();
+    });
+
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      targetX = e.clientX - rect.left - rect.width / 2;
+      targetY = e.clientY - rect.top - rect.height / 2;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      isHovering = false;
+      card.style.transition =
+        "transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)";
+      card.style.transform = "";
+      card.style.boxShadow = "";
+      targetX = 0;
+      targetY = 0;
+    });
+
+    function animateCard() {
+      if (!isHovering) return;
+
+      let targetCardRotX = -(targetY / 30);
+      let targetCardRotY = targetX / 30;
+
+      cardRotX += (targetCardRotX - cardRotX) * 0.1;
+      cardRotY += (targetCardRotY - cardRotY) * 0.1;
+
+      card.style.transform = `perspective(1000px) rotateX(${cardRotX}deg) rotateY(${cardRotY}deg) translateY(-2px)`;
+      card.style.boxShadow = "0 15px 30px rgba(0, 0, 0, 0.08)";
+
+      requestAnimationFrame(animateCard);
+    }
+  });
+
+  // === 5. HERO FLOCKING SIMULATION (CANVAS) ===
   const canvas = document.getElementById("flockCanvas");
   const heroSection = document.getElementById("hero");
 
@@ -79,18 +148,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const numBoids = 60;
     const visualRange = 75;
     const boids = [];
-
-    const mouse = {
-      x: -1000,
-      y: -1000,
-      radius: 120,
-    };
+    const mouse = { x: -1000, y: -1000, radius: 120 };
 
     function updateInteractionPosition(e) {
       const rect = canvas.getBoundingClientRect();
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
       mouse.x = clientX - rect.left;
       mouse.y = clientY - rect.top;
     }
@@ -119,205 +182,81 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    function separation(boid) {
-      let moveX = 0;
-      let moveY = 0;
-      const minDistance = 20;
-      for (let otherBoid of boids) {
-        if (otherBoid !== boid) {
-          const dist = Math.hypot(boid.x - otherBoid.x, boid.y - otherBoid.y);
-          if (dist < minDistance) {
-            moveX += boid.x - otherBoid.x;
-            moveY += boid.y - otherBoid.y;
+    function animateBoids() {
+      ctx.clearRect(0, 0, width, height);
+
+      for (let boid of boids) {
+        // Flocking Math Calculation
+        let moveX = 0,
+          moveY = 0,
+          avgDX = 0,
+          avgDY = 0,
+          centerX = 0,
+          centerY = 0,
+          neighbors = 0;
+
+        for (let otherBoid of boids) {
+          if (otherBoid !== boid) {
+            const dist = Math.hypot(boid.x - otherBoid.x, boid.y - otherBoid.y);
+            if (dist < 20) {
+              moveX += boid.x - otherBoid.x;
+              moveY += boid.y - otherBoid.y;
+            }
+            if (dist < visualRange) {
+              avgDX += otherBoid.dx;
+              avgDY += otherBoid.dy;
+              centerX += otherBoid.x;
+              centerY += otherBoid.y;
+              neighbors += 1;
+            }
           }
         }
-      }
-      boid.dx += moveX * 0.05;
-      boid.dy += moveY * 0.05;
-    }
 
-    function alignment(boid) {
-      let avgDX = 0;
-      let avgDY = 0;
-      let neighbors = 0;
-      for (let otherBoid of boids) {
-        if (otherBoid !== boid) {
-          const dist = Math.hypot(boid.x - otherBoid.x, boid.y - otherBoid.y);
-          if (dist < visualRange) {
-            avgDX += otherBoid.dx;
-            avgDY += otherBoid.dy;
-            neighbors += 1;
-          }
+        boid.dx += moveX * 0.05;
+        boid.dy += moveY * 0.05;
+
+        if (neighbors > 0) {
+          boid.dx += (avgDX / neighbors - boid.dx) * 0.05;
+          boid.dy += (avgDY / neighbors - boid.dy) * 0.05;
+          boid.dx += (centerX / neighbors - boid.x) * 0.005;
+          boid.dy += (centerY / neighbors - boid.y) * 0.005;
         }
-      }
-      if (neighbors > 0) {
-        avgDX = avgDX / neighbors;
-        avgDY = avgDY / neighbors;
-        boid.dx += (avgDX - boid.dx) * 0.05;
-        boid.dy += (avgDY - boid.dy) * 0.05;
-      }
-    }
 
-    function cohesion(boid) {
-      let centerX = 0;
-      let centerY = 0;
-      let neighbors = 0;
-      for (let otherBoid of boids) {
-        if (otherBoid !== boid) {
-          const dist = Math.hypot(boid.x - otherBoid.x, boid.y - otherBoid.y);
-          if (dist < visualRange) {
-            centerX += otherBoid.x;
-            centerY += otherBoid.y;
-            neighbors += 1;
-          }
+        // Mouse Interaction
+        const dist = Math.hypot(boid.x - mouse.x, boid.y - mouse.y);
+        if (dist < mouse.radius) {
+          const force = (mouse.radius - dist) / mouse.radius;
+          boid.dx += ((boid.x - mouse.x) / dist) * force * 2;
+          boid.dy += ((boid.y - mouse.y) / dist) * force * 2;
         }
+
+        // Limit Speed & Handle Edge Wrapping
+        const speed = Math.hypot(boid.dx, boid.dy);
+        if (speed > 2.5) {
+          boid.dx = (boid.dx / speed) * 2.5;
+          boid.dy = (boid.dy / speed) * 2.5;
+        }
+
+        if (boid.x < -10) boid.x = width + 10;
+        if (boid.x > width + 10) boid.x = -10;
+        if (boid.y < -10) boid.y = height + 10;
+        if (boid.y > height + 10) boid.y = -10;
+
+        boid.x += boid.dx;
+        boid.y += boid.dy;
+
+        // Draw Boid
+        ctx.beginPath();
+        ctx.arc(boid.x, boid.y, boid.radius, 0, Math.PI * 2);
+        ctx.fillStyle = boid.color;
+        ctx.fill();
       }
-      if (neighbors > 0) {
-        centerX = centerX / neighbors;
-        centerY = centerY / neighbors;
-        boid.dx += (centerX - boid.x) * 0.005;
-        boid.dy += (centerY - boid.y) * 0.005;
-      }
+      requestAnimationFrame(animateBoids);
     }
 
-    function mouseInteraction(boid) {
-      const dx = boid.x - mouse.x;
-      const dy = boid.y - mouse.y;
-      const dist = Math.hypot(dx, dy);
-
-      if (dist < mouse.radius) {
-        const force = (mouse.radius - dist) / mouse.radius;
-        boid.dx += (dx / dist) * force * 2;
-        boid.dy += (dy / dist) * force * 2;
-      }
-    }
-
-    // Edge wrapping logic to let boids reappear on the opposite side
-    function keepWithinBounds(boid) {
-      if (boid.x < -10) boid.x = width + 10;
-      if (boid.x > width + 10) boid.x = -10;
-      if (boid.y < -10) boid.y = height + 10;
-      if (boid.y > height + 10) boid.y = -10;
-    }
-
-    function limitSpeed(boid) {
-      const speedLimit = 2.5;
-      const speed = Math.hypot(boid.dx, boid.dy);
-      if (speed > speedLimit) {
-        boid.dx = (boid.dx / speed) * speedLimit;
-        boid.dy = (boid.dy / speed) * speedLimit;
-      }
-    }
-
+    // Slight delay before starting animation to let initial layout settle
     setTimeout(() => {
-      function animate() {
-        ctx.clearRect(0, 0, width, height);
-
-        for (let boid of boids) {
-          separation(boid);
-          alignment(boid);
-          cohesion(boid);
-          mouseInteraction(boid);
-          limitSpeed(boid);
-          keepWithinBounds(boid);
-
-          boid.x += boid.dx;
-          boid.y += boid.dy;
-
-          ctx.beginPath();
-          ctx.arc(boid.x, boid.y, boid.radius, 0, Math.PI * 2);
-          ctx.fillStyle = boid.color;
-          ctx.fill();
-        }
-        requestAnimationFrame(animate);
-      }
-      animate();
+      requestAnimationFrame(animateBoids);
     }, 100);
   }
-
-  // --- INTERACTION 4: Professional Zero-Jitter Lerp (3D Tilt & Magnetic Button) ---
-  const projectCards = document.querySelectorAll("#projects .card");
-
-  projectCards.forEach((card) => {
-    const button = card.querySelector(".btn-github-full");
-
-    // Target values (where your mouse actually is)
-    let targetX = 0,
-      targetY = 0;
-
-    // Current values (where the card and button currently are during the animation)
-    let cardRotX = 0,
-      cardRotY = 0;
-    let btnX = 0,
-      btnY = 0;
-    let isHovering = false;
-
-    card.addEventListener("mouseenter", () => {
-      isHovering = true;
-      card.style.transition = "none";
-      if (button) button.style.transition = "none";
-
-      // Kick off the buttery smooth animation loop
-      animate();
-    });
-
-    card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      // Calculate mouse position relative to the center of the card
-      targetX = e.clientX - rect.left - rect.width / 2;
-      targetY = e.clientY - rect.top - rect.height / 2;
-    });
-
-    card.addEventListener("mouseleave", () => {
-      isHovering = false;
-
-      // Restore the CSS transitions for a graceful snap-back to the center
-      card.style.transition =
-        "transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)";
-      card.style.transform = "";
-      card.style.boxShadow = "";
-
-      if (button) {
-        button.style.transition =
-          "transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)";
-        button.style.transform = "";
-      }
-
-      // Reset targets for the next hover
-      targetX = 0;
-      targetY = 0;
-    });
-
-    function animate() {
-      if (!isHovering) return;
-
-      // --- 1. The 3D Card Tilt ---
-      // Divide by 30 for a subtle maximum tilt
-      let targetCardRotX = -(targetY / 30);
-      let targetCardRotY = targetX / 30;
-
-      // Lerp formula: smoothly glide the current rotation 10% closer to the target rotation per frame
-      cardRotX += (targetCardRotX - cardRotX) * 0.1;
-      cardRotY += (targetCardRotY - cardRotY) * 0.1;
-
-      card.style.transform = `perspective(1000px) rotateX(${cardRotX}deg) rotateY(${cardRotY}deg) translateY(-2px)`;
-      card.style.boxShadow = "0 15px 30px rgba(0, 0, 0, 0.08)";
-
-      // --- 2. The Lazy Magnetic Button ---
-      if (button) {
-        // Multiply by 0.08 to severely limit how far the button is allowed to travel
-        let targetBtnX = targetX * 0.08;
-        let targetBtnY = targetY * 0.08;
-
-        // Glide the button 5% closer to the target per frame
-        btnX += (targetBtnX - btnX) * 0.05;
-        btnY += (targetBtnY - btnY) * 0.05;
-
-        button.style.transform = `translate(${btnX}px, ${btnY}px) scale(1.02)`;
-      }
-
-      // Loop the animation perfectly in sync with the user's screen refresh rate
-      requestAnimationFrame(animate);
-    }
-  });
 });
