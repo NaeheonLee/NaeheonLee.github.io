@@ -56,9 +56,10 @@ h2 {
   font-size: 2.5rem;
   font-weight: 900;
   margin-bottom: 40px;
-  border-bottom: 3px solid var(--accent-blue);
+  border-bottom: 3px solid var(--accent-red); /* Your red underline */
   display: inline-block;
   padding-bottom: 5px;
+  color: var(--accent-blue); /* Updated: Title text is now blue */
 }
 
 h3 {
@@ -227,7 +228,7 @@ section {
 }
 
 #projects .card h3 {
-  margin-bottom: 0px; /* Tighter spacing below Project Title */
+  margin-bottom: 0px;
 }
 
 /* Targets the brief description paragraph directly below the title */
