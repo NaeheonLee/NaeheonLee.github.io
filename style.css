@@ -22,7 +22,6 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   line-height: 1.6;
-  /* Clean, Apple-like sans-serif for high readability in body text */
   font-family:
     "Thonburi",
     -apple-system,
@@ -32,6 +31,7 @@ body {
     Helvetica,
     Arial,
     sans-serif;
+  font-size: 1.15rem;
 }
 
 /* Elegant, heavy serif italics for headings */
@@ -45,27 +45,27 @@ h3,
 }
 
 h1 {
-  font-size: 4.5rem;
+  font-size: 5.5rem;
   margin-bottom: 10px;
-  letter-spacing: -1px; /* Tightens the header slightly */
+  letter-spacing: -1.5px;
 }
 
 h2 {
-  font-size: 2.5rem;
+  font-size: 3.2rem; /* Increased from 2.5rem */
   font-weight: 900;
   margin-bottom: 40px;
-  border-bottom: 2px solid var(--accent-blue);
+  border-bottom: 3px solid var(--accent-blue);
   display: inline-block;
   padding-bottom: 5px;
 }
 
 h3 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
 }
 
 .logo {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   text-decoration: none;
   color: var(--text-color);
 }
@@ -76,24 +76,18 @@ section {
   display: flex;
   align-items: center;
   width: 100%;
-  /* Adds a little padding at the top so your fixed navbar doesn't cover your titles */
   padding-top: 70px;
 }
 
 .section-container {
   max-width: 1000px;
-  width: 100%; /* Important: Keeps the container responsive inside the flex section */
+  width: 100%;
   margin: 0 auto;
   padding: 40px 20px;
 }
 
 .bg-alt {
-  background-color: rgba(
-    110,
-    198,
-    211,
-    0.1
-  ); /* Super faint blue background for contrast */
+  background-color: rgba(110, 198, 211, 0.1);
 }
 
 /* --- Navbar --- */
@@ -284,6 +278,105 @@ section {
   display: none;
   margin-top: 15px;
   font-weight: 600;
+}
+
+/* --- Multi-Modal Overlay System --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Light Theme Modal Box (Matching Example 3-2) */
+.modal-content.light-modal {
+  background: #ffffff;
+  color: #1d1d1f;
+  padding: 60px 50px;
+  border-radius: 24px;
+  max-width: 1000px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: scale(0.95) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.modal-overlay.active .modal-content {
+  transform: scale(1) translateY(0);
+}
+
+/* Typography inside the light modal (Bigger fonts) */
+.light-modal .modal-category {
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #86868b;
+  margin-bottom: 8px;
+}
+
+.light-modal h2 {
+  font-size: 3.2rem;
+  margin-bottom: 20px;
+  color: #1d1d1f;
+  font-weight: 700;
+}
+
+.light-modal p {
+  color: #1d1d1f;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.modal-image {
+  width: 100%;
+  border-radius: 16px;
+  margin-top: 20px;
+}
+
+/* Close Button Setup for Light Theme */
+.light-modal .close-btn {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  font-size: 1.8rem;
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  color: #1d1d1f;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.light-modal .close-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
 }
 
 /* --- ANIMATIONS (The "Step Further") --- */

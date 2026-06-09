@@ -92,23 +92,82 @@
 
         <div class="card-grid">
           <div class="card reveal-card">
-            <h3>Project Name 1</h3>
+            <h3>Project 1</h3>
             <p>Brief description of the tech stack and outcome.</p>
-            <a href="#" class="btn-text">View GitHub &rarr;</a>
+            <button
+              class="btn-text open-modal-btn"
+              data-target="modal-project-1"
+            >
+              Explore Details &rarr;
+            </button>
           </div>
+
           <div class="card reveal-card">
-            <h3>Project Name 2</h3>
+            <h3>Project 2</h3>
             <p>Brief description of the tech stack and outcome.</p>
-            <a href="#" class="btn-text">View GitHub &rarr;</a>
+            <button
+              class="btn-text open-modal-btn"
+              data-target="modal-project-2"
+            >
+              Explore Details &rarr;
+            </button>
           </div>
+
           <div class="card reveal-card">
-            <h3>Project Name 3</h3>
+            <h3>Project 3</h3>
             <p>Brief description of the tech stack and outcome.</p>
-            <a href="#" class="btn-text">View GitHub &rarr;</a>
+            <button
+              class="btn-text open-modal-btn"
+              data-target="modal-project-2"
+            >
+              Explore Details &rarr;
+            </button>
           </div>
         </div>
       </div>
     </section>
+
+    <div id="modal-project-1" class="modal-overlay">
+      <div class="modal-content light-modal">
+        <button class="close-btn">&times;</button>
+        <p class="modal-category">Performance</p>
+        <h2>Happily ever faster.</h2>
+        <p>
+          Here is the deep dive into Project 1. You can explain your data
+          engineering workflow, the tools you used (like Python, SQL, or AWS),
+          and the final results.
+        </p>
+        <img
+          src="your-project-image.jpg"
+          alt="Project 1 Dashboard"
+          class="modal-image"
+        />
+      </div>
+    </div>
+
+    <div id="modal-project-2" class="modal-overlay">
+      <div class="modal-content light-modal">
+        <button class="close-btn">&times;</button>
+        <p class="modal-category">Machine Learning</p>
+        <h2>Predicting the Future.</h2>
+        <p>
+          Details for Project 2 go here. Talk about the algorithms used and the
+          accuracy of the model.
+        </p>
+      </div>
+    </div>
+
+    <div id="modal-project-3" class="modal-overlay">
+      <div class="modal-content light-modal">
+        <button class="close-btn">&times;</button>
+        <p class="modal-category">Machine Learning</p>
+        <h2>Predicting the Future.</h2>
+        <p>
+          Details for Project 2 go here. Talk about the algorithms used and the
+          accuracy of the model.
+        </p>
+      </div>
+    </div>
 
     <section id="contact" class="bg-alt">
       <div class="section-container form-container">
