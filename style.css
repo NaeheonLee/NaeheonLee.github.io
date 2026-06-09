@@ -15,6 +15,7 @@
 /* --- Global Smooth Scrolling --- */
 html {
   scroll-behavior: smooth;
+  font-size: 16px;
 }
 
 /* --- Typography --- */
@@ -31,7 +32,7 @@ body {
     Helvetica,
     Arial,
     sans-serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 /* Elegant, heavy serif italics for headings */
@@ -45,7 +46,7 @@ h3,
 }
 
 h1 {
-  font-size: 5.5rem; /* Upgraded to Apple-large statement text */
+  font-size: 5.5rem;
   margin-bottom: 10px;
   letter-spacing: -1.5px;
 }
