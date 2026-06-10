@@ -2,6 +2,16 @@
    NAEHEON LEE PORTFOLIO - STYLESHEET
    ========================================================================== */
 
+/* TABLE OF CONTENTS
+   1. Color Variables & Reset
+   2. Typography
+   3. Layout & Globals
+   4. Components (Cards, Buttons, Forms)
+   5. SVGs
+   6. Scroll Animations
+   7. Mobile Responsiveness
+*/
+
 /* --- 1. COLOR VARIABLES & RESET --- */
 :root {
   --bg-color: #f9f9f4; /* Cream background */
@@ -88,7 +98,6 @@ h3 {
 }
 
 .stark-quote span {
-  font-family: "Thonburi", sans-serif;
   font-weight: 500;
   font-style: normal;
   font-size: 1rem;
@@ -493,6 +502,8 @@ section {
 }
 
 /* --- 5. SVGs --- */
+
+/* Targets the main logo graphic in the top navigation bar */
 .nav-svg {
   height: 45px;
   width: auto;
@@ -501,6 +512,7 @@ section {
   transform-origin: left center;
 }
 
+/* Targets the large background graphic in the opening hero section */
 .hero-svg {
   height: 180px;
   width: auto;
