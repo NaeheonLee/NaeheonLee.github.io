@@ -2,7 +2,7 @@
 
 **CS 463/563 - Intro to Web Development Final Project**
 
-A responsive, single-page professional portfolio website built to highlight my background, previous work, and projects as a Data Engineer and Data Scientist.
+A responsive, single-page professional portfolio website built to highlight my background, previous work, and projects as a Data Engineer.
 
 ## Live Deployment
 

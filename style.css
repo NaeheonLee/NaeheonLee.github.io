@@ -42,7 +42,8 @@ h1,
 h2,
 h3,
 .logo,
-.details-title {
+.details-title,
+.stark-quote {
   font-family: "Charter", "Bitstream Charter", Georgia, serif;
   font-style: italic;
   font-weight: 900;
@@ -75,6 +76,25 @@ h3 {
   color: var(--accent-blue);
   margin-bottom: 0px;
   letter-spacing: normal;
+}
+
+.stark-quote {
+  font-size: 1.25rem;
+  color: var(--accent-blue);
+  border-left: 3px solid var(--accent-red);
+  padding-left: 15px;
+  margin-bottom: 25px;
+  line-height: 1.4;
+}
+
+.stark-quote span {
+  font-family: "Thonburi", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 1rem;
+  color: var(--text-color);
+  display: block;
+  margin-top: 5px;
 }
 
 /* --- 3. LAYOUT & GLOBALS --- */
@@ -202,9 +222,58 @@ section {
   aspect-ratio: 1/1;
   background-color: var(--accent-blue);
   border-radius: 16px;
+  overflow: hidden;
 }
 
-/* Card Grids */
+.profile-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- Bento Box Gallery --- */
+.bento-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  margin-top: 0;
+}
+
+.bento-gallery .box-large {
+  grid-column: 1 / -1;
+  height: 350px;
+}
+
+.bento-gallery .box-small-top {
+  grid-column: 1 / 2;
+  height: 250px;
+}
+
+.bento-gallery .box-small-bottom {
+  grid-column: 2 / 3;
+  height: 250px;
+}
+
+.gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.bento-gallery .image-box {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.bento-gallery .image-box:hover .gallery-img {
+  transform: scale(1.05);
+}
+
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -212,6 +281,7 @@ section {
   align-items: stretch;
 }
 
+#work .card-grid,
 #projects .card-grid {
   grid-template-columns: 1fr;
   max-width: 800px;
@@ -252,6 +322,61 @@ section {
   font-size: 1.15rem;
   font-weight: 600;
   color: #1d1d1f;
+}
+
+/* --- Work & Projects Typography Fixes --- */
+
+/* Brings the title slightly closer to the meta-info */
+#work .card h3,
+#projects .card h3 {
+  margin-bottom: 5px;
+}
+
+/* Targets the Location/Tech & Date (The first paragraph) */
+#work .card p:first-of-type,
+#projects .card p:first-of-type {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-red);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eaeaea;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* Forces the date text to align to the right side on mobile if it wraps */
+#work .card p:first-of-type span:last-child,
+#projects .card p:first-of-type span:last-child {
+  text-align: right;
+}
+
+/* Formats the Bullet Point Container */
+#work .card ul,
+#projects .card ul {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+
+/* Formats the individual Bullet Points */
+#work .card li,
+#projects .card li {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+/* Removes the margin from the very last bullet point */
+#work .card li:last-of-type,
+#projects .card li:last-of-type {
+  margin-bottom: 0;
 }
 
 .expanded-card {
@@ -450,6 +575,19 @@ section {
 
   .about-grid {
     grid-template-columns: 1fr;
+  }
+
+  .bento-gallery {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-top: 60px;
+  }
+
+  .bento-gallery .box-large,
+  .bento-gallery .box-small-top,
+  .bento-gallery .box-small-bottom {
+    grid-column: 1 / -1;
+    height: 220px;
   }
 
   .logo {

@@ -27,7 +27,7 @@
         <h1>
           <img src="image/naeheon-lee.svg" alt="Naeheon Lee" class="hero-svg" />
         </h1>
-        <p class="reveal-card">Data Engineer & Data Scientist</p>
+        <p class="reveal-card">Data Engineer</p>
       </div>
     </section>
 
@@ -37,11 +37,28 @@
           <div class="about-text">
             <h2 class="reveal-title">About Me</h2>
             <div class="reveal-card">
+              <blockquote class="stark-quote">
+                "Jarvis, sometimes you gotta run before you can walk."
+                <span>- Tony Stark</span>
+              </blockquote>
+
               <p>
-                [Insert your professional introduction here. Highlight your
-                background and passions.]
+                I am a Data Engineer who thrives on transforming chaos into
+                clean, scalable infrastructure. Whether architecting real-time
+                pipelines or optimizing distributed databases, I treat data
+                engineering as the puzzle. For me, the thrill lies in building
+                efficient, reliable systems that solve complex problems.
               </p>
-              <p>[Add more details about your workflow or philosophy.]</p>
+
+              <p>
+                Off the screen, I believe a grounded mind drives the sharpest
+                code. I recharge by stepping out into nature, riding horses, and
+                line dancing, hobbies that demand the exact same rhythm,
+                adaptability, and calm under pressure as a tough debugging
+                session. And when a major pipeline finally deploys, my favorite
+                way to celebrate is with a perfectly cooked steak and sweet ice
+                cream.
+              </p>
 
               <div class="contact-links">
                 <a
@@ -63,7 +80,39 @@
             </div>
           </div>
           <div class="about-image">
-            <div class="image-box reveal-image"></div>
+            <div class="image-box reveal-image">
+              <img src="image/profile.jpg" alt="Me" class="profile-pic" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <div class="section-container">
+        <div class="bento-gallery">
+          <div class="image-box box-large reveal-image">
+            <img
+              src="image/aboutme_2.jpeg"
+              alt="Tony Stark Iron Man"
+              class="gallery-img"
+            />
+          </div>
+
+          <div class="image-box box-small-top reveal-image">
+            <img
+              src="image/aboutme_1.jpg"
+              alt="Sprout on beach"
+              class="gallery-img"
+            />
+          </div>
+
+          <div class="image-box box-small-bottom reveal-image">
+            <img
+              src="image/aboutme_3.jpg"
+              alt="Palm trees at sunset"
+              class="gallery-img"
+            />
           </div>
         </div>
       </div>
@@ -72,18 +121,66 @@
     <section id="work" class="bg-alt">
       <div class="section-container">
         <h2 class="reveal-title">Previous Work</h2>
+
         <div class="card-grid">
           <div class="card reveal-card">
-            <h3>Role 1</h3>
-            <p>Description of your responsibilities and achievements.</p>
+            <h3>Graduate Teaching Assistant</h3>
+            <p>
+              <span>Data with Python</span>
+              <span>March 2026 - Present</span>
+            </p>
+            <ul>
+              <li>
+                Mentored 45+ students in analytical problem formulation, guiding
+                them to translate abstract inquiries into structured exploratory
+                data analysis (EDA) and predictive modeling workflows.
+              </li>
+              <li>
+                Troubleshot and optimized student code in real-time, resolving
+                complex logic errors across data visualizations, decision trees,
+                and linear regression models.
+              </li>
+            </ul>
           </div>
+
           <div class="card reveal-card">
-            <h3>Role 2</h3>
-            <p>Description of your responsibilities and achievements.</p>
+            <h3>Undergraduate Research Assistant</h3>
+            <p>
+              <span>Machine Learning Lab, Kangwon National Univ.</span>
+              <span>Jun 2021 - Aug 2021</span>
+            </p>
+            <ul>
+              <li>
+                Co-engineered an arrhythmia prediction model alongside a team of
+                5 researchers, successfully increasing diagnostic accuracy from
+                ~60% to 86%.
+              </li>
+              <li>
+                Designed and implemented a secure data acquisition framework to
+                collect, process, and pseudonymize healthcare records from 3+
+                public institutions.
+              </li>
+            </ul>
           </div>
+
           <div class="card reveal-card">
-            <h3>Role 3</h3>
-            <p>Description of your responsibilities and achievements.</p>
+            <h3>Undergraduate Researcher</h3>
+            <p>
+              <span>Forestry & SW Engineering Convergence Unit</span>
+              <span>Jul 2020 - Aug 2021</span>
+            </p>
+            <ul>
+              <li>
+                Developed a custom Python analysis tool capable of processing
+                700+ datasets to track the habitat migration of Scopolia
+                japonica.
+              </li>
+              <li>
+                Built and preprocessed a 15,000+ plant species database,
+                utilizing Pearson's correlation to statistically validate
+                ecological distribution shifts.
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -92,80 +189,118 @@
     <section id="projects">
       <div class="section-container">
         <h2 class="reveal-title">Projects</h2>
+
         <div class="card-grid">
-          <div class="card expanded-card reveal-card">
-            <div class="card-inner-layout">
-              <div class="card-role">
-                <h3>Project 1</h3>
-                <p class="tech-stack">
-                  Brief description of the tech stack and outcome.
-                </p>
-              </div>
-              <div class="card-details">
-                <h4 class="details-title">Performance</h4>
-                <p>
-                  Here is the deep dive into Project 1. You can explain your
-                  data engineering workflow, the tools you used (like Python,
-                  SQL, or AWS), and the final results.
-                </p>
-              </div>
-            </div>
+          <div class="card reveal-card">
+            <h3>TriMet Real-Time Data Pipeline</h3>
+            <p>
+              <span>Python, GCP (Pub/Sub, Compute Engine), PostgreSQL</span>
+              <span>Spring 2026</span>
+            </p>
+            <ul>
+              <li>
+                Designed and deployed a real-time data ingestion pipeline on
+                Google Cloud Platform to process public transit telemetry and
+                passenger data via TriMet APIs.
+              </li>
+              <li>
+                Orchestrated distributed message queues using Google Cloud
+                Pub/Sub, sustaining a peak throughput of 6,400 records/sec and
+                processing 700,000+ daily messages.
+              </li>
+              <li>
+                Engineered robust PostgreSQL databases to house 664 million
+                records (50 GB), implementing ON CONFLICT DO NOTHING constraints
+                to safely manage at-least-once delivery guarantees and prevent
+                message duplication.
+              </li>
+            </ul>
             <a
-              href="https://github.com/yourusername/project1"
+              href="https://github.com/NaeheonLee/TriMet_Real-Time_Data_Pipeline"
               target="_blank"
               rel="noopener noreferrer"
               class="btn-github-full"
-              >View GitHub &rarr;</a
+              style="margin-top: 20px"
+              >View on GitHub</a
             >
           </div>
 
-          <div class="card expanded-card reveal-card">
-            <div class="card-inner-layout">
-              <div class="card-role">
-                <h3>Project 2</h3>
-                <p class="tech-stack">
-                  Brief description of the tech stack and outcome.
-                </p>
-              </div>
-              <div class="card-details">
-                <h4 class="details-title">Machine Learning</h4>
-                <p>
-                  Details for Project 2 go here. Talk about the algorithms used
-                  and the accuracy of the model.
-                </p>
-              </div>
-            </div>
+          <div class="card reveal-card">
+            <h3>Scalable Event Notification System</h3>
+            <p>
+              <span>Apache Kafka, Distributed Systems</span>
+              <span>Fall 2025</span>
+            </p>
+            <ul>
+              <li>
+                Architected a distributed service using Apache Kafka for
+                high-throughput ingestion, employing horizontal scaling to
+                handle thousands of events/sec.
+              </li>
+              <li>
+                Designed fault-tolerant Circuit Breakers and Distributed Caching
+                to theoretically prevent cascading system failures.
+              </li>
+            </ul>
             <a
-              href="https://github.com/yourusername/project2"
+              href="https://github.com/NaeheonLee/Scalable_Event_Notification_System"
               target="_blank"
               rel="noopener noreferrer"
               class="btn-github-full"
-              >View GitHub &rarr;</a
+              style="margin-top: 20px"
+              >View on GitHub</a
             >
           </div>
 
-          <div class="card expanded-card reveal-card">
-            <div class="card-inner-layout">
-              <div class="card-role">
-                <h3>Project 3</h3>
-                <p class="tech-stack">
-                  Brief description of the tech stack and outcome.
-                </p>
-              </div>
-              <div class="card-details">
-                <h4 class="details-title">Machine Learning</h4>
-                <p>
-                  Details for Project 3 go here. Talk about the algorithms used
-                  and the accuracy of the model.
-                </p>
-              </div>
-            </div>
+          <div class="card reveal-card">
+            <h3>Jazz Discography Relational Database</h3>
+            <p>
+              <span>Python ETL, SQLite, SQL</span>
+              <span>Fall 2025</span>
+            </p>
+            <ul>
+              <li>
+                Engineered a Python ETL script parsing a 30GB+ XML dump to
+                extract a 300MB targeted jazz dataset.
+              </li>
+              <li>
+                Designed a 3NF SQLite schema and advanced SQL queries to analyze
+                jazz subgenre evolution and historical trends.
+              </li>
+            </ul>
             <a
-              href="https://github.com/yourusername/project3"
+              href="https://github.com/NaeheonLee/Discogs_Jazz_Discography"
               target="_blank"
               rel="noopener noreferrer"
               class="btn-github-full"
-              >View GitHub &rarr;</a
+              style="margin-top: 20px"
+              >View on GitHub</a
+            >
+          </div>
+
+          <div class="card reveal-card">
+            <h3>Portland Crime & Economic Trend Analysis</h3>
+            <p>
+              <span>Pandas, Streamlit, Python</span>
+              <span>Fall 2025</span>
+            </p>
+            <ul>
+              <li>
+                Engineered a Pandas ETL pipeline processing 650,000+ rows of
+                crime data to analyze economic recession correlations.
+              </li>
+              <li>
+                Co-developed interactive Streamlit heatmaps with a 3-person
+                team, accelerating web-based data visualization.
+              </li>
+            </ul>
+            <a
+              href="https://github.com/NaeheonLee/Portland_Crime_Analysis"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-github-full"
+              style="margin-top: 20px"
+              >View on GitHub</a
             >
           </div>
         </div>
